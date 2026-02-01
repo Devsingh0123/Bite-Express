@@ -1,4 +1,5 @@
 import React from "react";
+import { FcGoogle } from "react-icons/fc";
 
 import { useState } from "react";
 
@@ -73,6 +74,14 @@ function Login() {
             className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold transition duration-300 cursor-pointer"
           >
             Login
+          </button>
+          {/* google login button */}
+          <button
+            type="submit"
+            className="w-full bg-gray-100 hover:bg-gray-200  py-2 rounded-lg flex justify-center items-center gap-4 border-none transition duration-300 cursor-pointer"
+          >
+            <span className="text-sm text-gray-500 font-semibold ">Sign in with google :</span><FcGoogle size={20} />
+
           </button>
         </form>
 
