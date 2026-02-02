@@ -1,8 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,9 +19,20 @@ function Signup() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/auth/signup`,
+        formData,
+        { withCredentials: true },
+      );
+
+      toast.success(res?.data?.message);
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    }
   };
 
   return (
@@ -117,7 +132,7 @@ function Signup() {
               <option className="cursor-pointer" value="admin">
                 Admin
               </option>
-              <option className="cursor-pointer" value="delivery">
+              <option className="cursor-pointer" value="deliveryBoy">
                 Delivery Boy
               </option>
             </select>
@@ -133,19 +148,20 @@ function Signup() {
           {/* google signup button */}
           <button
             type="submit"
-            className="w-full bg-gray-100 hover:bg-gray-200  py-2 rounded-lg flex justify-center items-center gap-4 border-none transition duration-300 cursor-pointer"
+            className="w-full hover:bg-gray-200 py-2 rounded-lg flex justify-center items-center gap-4 border border-gray-400 transition duration-300 cursor-pointer"
           >
-            <span className="text-sm text-gray-500 font-semibold ">
-              SignUp with google :
-            </span>
             <FcGoogle size={20} />
+            <span className=" ">SignUp with Google</span>
           </button>
         </form>
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-500 mt-4">
           Already have an account?{" "}
-          <span className="text-orange-500 font-semibold cursor-pointer">
+          <span
+            className="text-orange-500 font-semibold cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
             Login
           </span>
         </p>
