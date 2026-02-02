@@ -4,6 +4,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 const ForgotPassword = () => {
   const [step, setStep] = useState(1);
@@ -11,57 +12,68 @@ const ForgotPassword = () => {
   const [otp, setOtp] = useState("");
   const [newPassword, setnewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const sendOtp = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/auth/send-otp`,
-        {email},
+        { email },
         { withCredentials: true },
       );
-    //   console.log(res.data.message);
+      //   console.log(res.data.message);
+      setLoading(false);
       toast.success(res?.data?.message);
       setStep(2);
     } catch (error) {
-    //   console.log({error});
+      //   console.log({error});
+      setLoading(false);
       toast.error(error.response?.data?.message);
     }
   };
 
   const verifyOtp = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/auth/verify-otp`,
-        {email,otp},
+        { email, otp },
         { withCredentials: true },
       );
-    //   console.log(res.data.message);
+      //   console.log(res.data.message);
+      setLoading(false);
       toast.success(res?.data?.message);
       setStep(3);
     } catch (error) {
-    //   console.log({error});
+      //   console.log({error});
+      setLoading(false);
       toast.error(error.response?.data?.message);
     }
   };
 
   const resetPassword = async () => {
-    
+    setLoading(true);
+
     try {
-        if (newPassword != confirmPassword)
-      return toast.error("Password Mismatch");
-    console.log(email);
-    
+      if (newPassword !== confirmPassword) {
+  toast.error("Password Mismatch");
+  setLoading(false);
+  return;
+}
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/auth/reset-password`,
-        {email,newPassword},
+        { email, newPassword },
         { withCredentials: true },
       );
-    //   console.log(res.data.message);
+      //   console.log(res.data.message);
+      setLoading(false);
       toast.success(res?.data?.message);
       navigate("/login");
     } catch (error) {
-    //   console.log({error});
+      //   console.log({error});
+      setLoading(false);
       toast.error(error.response?.data?.message);
     }
   };
@@ -111,9 +123,10 @@ const ForgotPassword = () => {
 
             <button
               onClick={sendOtp}
-              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer"
+              disabled={loading}
+              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer flex justify-center items-center gap-4"
             >
-              Send OTP
+              {  loading ?<><Loader/> Send OTP</> : "Send OTP"}
             </button>
           </>
         )}
@@ -135,9 +148,10 @@ const ForgotPassword = () => {
 
             <button
               onClick={verifyOtp}
-              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold cursor-pointer"
+              disabled={loading}
+              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold cursor-pointer flex justify-center items-center gap-4"
             >
-              Verify OTP
+             {  loading ?<><Loader/> Verify OTP</> : "Verify OTP"} 
             </button>
           </>
         )}
@@ -177,9 +191,10 @@ const ForgotPassword = () => {
 
             <button
               onClick={resetPassword}
-              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold cursor-pointer"
+              disabled={loading}
+              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold cursor-pointer flex justify-center items-center gap-4"
             >
-              Reset Password
+                   {  loading ?<><Loader/> Reset Password</> : "Reset Password"}  
             </button>
           </>
         )}

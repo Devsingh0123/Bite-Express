@@ -4,6 +4,9 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function Signup() {
   const navigate = useNavigate();
@@ -14,38 +17,46 @@ function Signup() {
     password: "",
     role: "user",
   });
-
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/auth/signup`,
         formData,
         { withCredentials: true },
       );
-
+      setLoading(false);
       toast.success(res?.data?.message);
       navigate("/login");
     } catch (error) {
+      setLoading(false);
       toast.error(error.response?.data?.message);
     }
   };
+// signup via google
+  const handleGoogleAuth =async ()=>{
+const provider = new GoogleAuthProvider()
+const result = await signInWithPopup(auth,provider)
+console.log(result)
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-500 to-red-500">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-4">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8">
         {/* Title */}
         <h1 className="text-3xl font-bold text-center text-orange-600">
           BiteExpress
         </h1>
-        <p className="text-center text-gray-500 mb-6">Create your account</p>
+        <p className="text-center text-gray-500 mb-4">Create your account</p>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-2">
           {/* Name */}
           <div>
             <label htmlFor="name" className="text-sm text-gray-600">
@@ -59,7 +70,7 @@ function Signup() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full  px-4 py-1 border border-gray-400 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
             />
           </div>
 
@@ -76,7 +87,7 @@ function Signup() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border-gray-400 px-4 py-1 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
             />
           </div>
 
@@ -93,7 +104,7 @@ function Signup() {
               value={formData.mobile}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border-gray-400  px-4 py-1 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
             />
           </div>
 
@@ -110,7 +121,7 @@ function Signup() {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full border-gray-400  px-4 py-1 border rounded-lg focus:ring-2 focus:ring-orange-400 outline-none"
             />
           </div>
 
@@ -124,7 +135,7 @@ function Signup() {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg bg-white text-sm focus:ring-2 focus:ring-orange-400 outline-none cursor-pointer"
+              className="w-full border-gray-400 px-4 py-1 border rounded-lg bg-white text-sm text-gray-800 focus:ring-2 focus:ring-orange-400 outline-none cursor-pointer"
             >
               <option className="cursor-pointer" value="user">
                 User
@@ -141,19 +152,27 @@ function Signup() {
           {/* Button */}
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold transition duration-300 cursor-pointer"
+            disabled={loading}
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-1 rounded-lg font-semibold transition duration-300 cursor-pointer flex justify-center items-center gap-4 mt-4"
           >
-            Sign Up
-          </button>
-          {/* google signup button */}
-          <button
-            type="submit"
-            className="w-full hover:bg-gray-200 py-2 rounded-lg flex justify-center items-center gap-4 border border-gray-400 transition duration-300 cursor-pointer"
-          >
-            <FcGoogle size={20} />
-            <span className=" ">SignUp with Google</span>
+            {loading ? (
+              <>
+                <Loader /> Sign Up
+              </>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
+        {/* google signup button */}
+        <button
+          type="submit"
+          className="w-full hover:bg-gray-200 py-1 rounded-lg flex justify-center items-center gap-2 border border-gray-400 transition duration-300 cursor-pointer mt-4"
+          onClick={handleGoogleAuth}
+        >
+          <FcGoogle size={20} />
+          <span className=" ">SignUp with Google</span>
+        </button>
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-500 mt-4">
