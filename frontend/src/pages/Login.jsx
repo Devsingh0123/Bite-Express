@@ -58,7 +58,7 @@ function Login() {
 
           {/* Email */}
           <div>
-            <label className="text-sm text-gray-600">Email</label>
+            <label className="text-sm font-medium text-gray-600">Email</label>
             <input
               type="email"
               name="email"
@@ -72,7 +72,7 @@ function Login() {
 
           {/* Password */}
           <div>
-            <label className="text-sm text-gray-600">Password</label>
+            <label className="text-sm font-medium text-gray-600">Password</label>
             <input
               type="password"
               name="password"

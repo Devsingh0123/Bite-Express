@@ -80,7 +80,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 px-4">
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-xl p-6">
+      <div className="bg-white w-full max-w-sm rounded-2xl shadow-xl p-8">
         {/* Header */}
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Forgot Password
@@ -116,7 +116,7 @@ const ForgotPassword = () => {
               id="email"
               type="email"
               placeholder="you@biteexpress.com"
-              className="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full mt-1 px-4 py-1 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none border-gray-400"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -124,7 +124,7 @@ const ForgotPassword = () => {
             <button
               onClick={sendOtp}
               disabled={loading}
-              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer flex justify-center items-center gap-4"
+              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-1 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer flex justify-center items-center gap-4"
             >
               {  loading ?<><Loader/> Send OTP</> : "Send OTP"}
             </button>
@@ -141,7 +141,7 @@ const ForgotPassword = () => {
               id="otp"
               type="text"
               placeholder="Enter OTP"
-              className="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none text-center tracking-widest"
+              className="w-full mt-1 px-4 py-1 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none text-center tracking-widest"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
@@ -149,7 +149,7 @@ const ForgotPassword = () => {
             <button
               onClick={verifyOtp}
               disabled={loading}
-              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold cursor-pointer flex justify-center items-center gap-4"
+              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-1 rounded-xl font-semibold cursor-pointer flex justify-center items-center gap-4"
             >
              {  loading ?<><Loader/> Verify OTP</> : "Verify OTP"} 
             </button>
@@ -169,7 +169,7 @@ const ForgotPassword = () => {
               id="new password"
               type="password"
               placeholder="Enter New Password"
-              className="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full mt-1 px-4 py-1 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none"
               value={newPassword}
               onChange={(e) => setnewPassword(e.target.value)}
             />
@@ -184,7 +184,7 @@ const ForgotPassword = () => {
               id="confirm password"
               type="password"
               placeholder="Confirm Password"
-              className="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none"
+              className="w-full mt-1 px-4 py-1 border rounded-xl focus:ring-2 focus:ring-orange-400 outline-none"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -192,7 +192,7 @@ const ForgotPassword = () => {
             <button
               onClick={resetPassword}
               disabled={loading}
-              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl font-semibold cursor-pointer flex justify-center items-center gap-4"
+              className="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white py-1 rounded-xl font-semibold cursor-pointer flex justify-center items-center gap-4"
             >
                    {  loading ?<><Loader/> Reset Password</> : "Reset Password"}  
             </button>

@@ -59,7 +59,7 @@ console.log(result)
         <form onSubmit={handleSubmit} className="space-y-2">
           {/* Name */}
           <div>
-            <label htmlFor="name" className="text-sm text-gray-600">
+            <label htmlFor="name" className="text-sm font-medium text-gray-600">
               Full Name
             </label>
             <input
@@ -76,7 +76,7 @@ console.log(result)
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="text-sm text-gray-600">
+            <label htmlFor="email" className="text-sm font-medium text-gray-600">
               Email
             </label>
             <input
@@ -93,7 +93,7 @@ console.log(result)
 
           {/* Mobile */}
           <div>
-            <label htmlFor="tel" className="text-sm text-gray-600">
+            <label htmlFor="tel" className="text-sm font-medium text-gray-600">
               Mobile Number
             </label>
             <input
@@ -110,7 +110,7 @@ console.log(result)
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="text-sm text-gray-600">
+            <label htmlFor="password" className="text-sm font-medium text-gray-600">
               Password
             </label>
             <input
@@ -127,7 +127,7 @@ console.log(result)
 
           {/* Role */}
           <div>
-            <label htmlFor="role" className="text-sm text-gray-600">
+            <label htmlFor="role" className="text-sm font-medium text-gray-600">
               Role
             </label>
             <select
